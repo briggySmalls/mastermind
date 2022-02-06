@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Slice from './mastermind/Slice'
+import Colour from './mastermind/Colour';
 
 function App() {
   return (
@@ -18,6 +20,9 @@ function App() {
         >
           Learn React
         </a>
+        <Slice colour={Colour.Blue} />
+        <Slice colour={Colour.Red} />
+        <Slice colour={Colour.Green} />
       </header>
     </div>
   );
