@@ -20,9 +20,9 @@ function App() {
         >
           Learn React
         </a>
-        <Slice colour={Colour.Blue} />
-        <Slice colour={Colour.Red} />
-        <Slice colour={Colour.Green} />
+        <Slice />
+        <Slice />
+        <Slice />
       </header>
     </div>
   );
