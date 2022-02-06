@@ -1,8 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Slice from './mastermind/Slice'
-import Colour from './mastermind/Colour';
+import Pizza from './mastermind/Pizza'
 
 function App() {
   return (
@@ -20,9 +19,7 @@ function App() {
         >
           Learn React
         </a>
-        <Slice />
-        <Slice />
-        <Slice />
+        <Pizza />
       </header>
     </div>
   );

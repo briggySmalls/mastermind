@@ -8,10 +8,12 @@ interface SliceProps {
 function Slice(props: SliceProps) {
   const [colour, setColour] = useState(Colour.Blue);
 
-  const SliceContainer = styled.span`
+  const SliceContainer = styled.div`
     border: 5px solid white;
     border-radius: 5px;
-    background-color: ${colour}
+    background-color: ${colour};
+    width: 3em;
+    height: 3em;
   `
   function handleKeyPress(event: React.KeyboardEvent) {
     switch (event.key.toLowerCase()) {
@@ -24,7 +26,7 @@ function Slice(props: SliceProps) {
   }
 
   return (
-    <SliceContainer tabIndex={1} onKeyDown={handleKeyPress}>hello a slice</SliceContainer>
+    <SliceContainer tabIndex={1} onKeyDown={handleKeyPress} />
   )
 }
 
