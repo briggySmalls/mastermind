@@ -1,13 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Pizza from './mastermind/Pizza'
+import Game from './mastermind/Game'
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Pizza />
+        <Game />
       </header>
     </div>
   );
