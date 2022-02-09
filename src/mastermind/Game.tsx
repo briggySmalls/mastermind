@@ -39,21 +39,26 @@ function Game() {
     setText(validText)
   }
 
+  function handleSubmit(event: React.SyntheticEvent) {
+    event.preventDefault();
+    let newGuesses = guesses;
+    newGuesses[index] = textToColours(text);
+    setGuesses(newGuesses)
+    setIndex(index+1);
+    setText("");
+  }
+
   return (
     <>
-      <Input key="input"
-        type="text"
-        maxLength={5}
-        onChange={e => setText(e.target.value)}
-        value={text}
-        />
-      <Pizza colours={colours} />
+      <form onSubmit={handleSubmit}>
         <Input key="input"
           type="text"
           maxLength={5}
           onChange={handleTextChange}
           value={text}
           />
+        <input type="submit" value="Submit" />
+      </form>
       {
         guesses.map((g, i) =>
           <Pizza colours={(i == index) ? textToColours(text) : g} />
