@@ -5,6 +5,7 @@ import Pizza from './Pizza';
 
 const validChars = ["r", "g", "b", "p", "y"];
 const charCount = 5;
+const guessCount = 6;
 
 const Input = styled.input`
   margin: 3em;
@@ -26,7 +27,10 @@ function textToColours(text: String) {
 
 function Game() {
   const [text, setText] = useState("");
-  let colours = textToColours(text);
+  const [index, setIndex] = useState(0);
+  const [guesses, setGuesses] = useState(Array.from(Array(guessCount).fill(
+    Array.from(Array(charCount)).fill(Colour.Grey)
+  )));
 
   function handleTextChange(event: React.ChangeEvent<HTMLInputElement>) {
     // Preserve content
@@ -44,6 +48,17 @@ function Game() {
         value={text}
         />
       <Pizza colours={colours} />
+        <Input key="input"
+          type="text"
+          maxLength={5}
+          onChange={handleTextChange}
+          value={text}
+          />
+      {
+        guesses.map((g, i) =>
+          <Pizza colours={(i == index) ? textToColours(text) : g} />
+        )
+      }
     </>
   )
 }
