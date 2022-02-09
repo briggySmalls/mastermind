@@ -7,9 +7,7 @@ const validChars = ["r", "g", "b", "p", "y"];
 const charCount = 5;
 
 const Input = styled.input`
-  background: transparent;
-  border: none;
-  // color: transparent;
+  margin: 3em;
 `
 
 function textToColours(text: String) {
