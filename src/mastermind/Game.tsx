@@ -71,6 +71,9 @@ function Game() {
 
   function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
+    // Ensure we have a full guess
+    if (text.length != charCount) return
+    // Update state
     let newStates = R.adjust(
       index,
       (s: PizzaState) => {
