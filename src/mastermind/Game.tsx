@@ -40,11 +40,11 @@ function textToColours(text: String) {
 function calculateScore(answer: String, guess: String): Score {
   const ansArr = answer.split('');
   const guessArr = guess.split('');
-  const exact =  R.zipWith((a, g) => a == g, ansArr, guessArr).filter(Boolean).length
+  const exact =  R.zipWith((a, g) => a === g, ansArr, guessArr).filter(Boolean).length
   const common = R.intersection(ansArr, guessArr)
   const matching = R.sum(common.map(c => R.min(
-    ansArr.filter(v => v == c).length,
-    guessArr.filter(v => v == c).length,
+    ansArr.filter(v => v === c).length,
+    guessArr.filter(v => v === c).length,
   )));
   return {
     exact: exact,
@@ -73,7 +73,7 @@ function Game() {
   function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
     // Ensure we have a full guess
-    if (text.length != charCount) return
+    if (text.length !== charCount) return
     // Update state
     const score = calculateScore(answer, text)
     let newStates = R.adjust(
@@ -88,7 +88,7 @@ function Game() {
     );
     setPizzaStates(newStates);
     // Iterate
-    if (score.exact == charCount || index == guessCount-1) {
+    if (score.exact === charCount || index === guessCount-1) {
       setIsEnded(true)
     }
     setIndex(index+1);
@@ -109,7 +109,7 @@ function Game() {
       </form>
       {
         pizzaStates.map((s, i) =>
-          <Pizza colours={(i == index) ? textToColours(text) : s.guess} score={s.score} />
+          <Pizza colours={(i === index) ? textToColours(text) : s.guess} score={s.score} />
         )
       }
     </>
