@@ -53,7 +53,7 @@ function calculateScore(answer: String, guess: String): Score {
 }
 
 function Game() {
-  const answer = "yyyyy";
+  const answer = "rggbp";
   const [text, setText] = useState("");
   const [index, setIndex] = useState(0);
   const [pizzaStates, setPizzaStates] = useState<PizzaState[]>(Array.from(Array(guessCount).fill(

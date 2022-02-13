@@ -5,13 +5,21 @@ interface ScoreProps {
   partial: number;
 }
 
-const ScoreBoard = styled.ul`
+const ScoreBoard = styled.div`
+margin-left: 1em;
 `
-const ExactMatch = styled.li`
-color: red;
+const Match = styled.div`
+display: inline-block;
+width: 1em;
+height: 1em;
+border-radius: 50%;
 `
-const PartialMatch = styled.li`
-color: white;
+
+const ExactMatch = styled(Match)`
+background-color: red;
+`
+const PartialMatch = styled(Match)`
+background-color: white;
 `
 
 function Score({ exact, partial }: ScoreProps) {

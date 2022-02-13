@@ -15,7 +15,8 @@ interface PizzaProps {
 }
 
 const Box = styled.div`
-  display: flex;
+display: flex;
+align-items: center
 `
 
 function Pizza({ colours, score }: PizzaProps) {
@@ -25,8 +26,8 @@ function Pizza({ colours, score }: PizzaProps) {
         {colours.map((c) =>
           <Slice colour={c} />)
         }
+        {score && <Score exact={score.exact} partial={score.partial} />}
       </Box>
-      {score && <Score exact={score.exact} partial={score.partial} />}
     </>
   )
 }
