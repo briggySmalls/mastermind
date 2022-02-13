@@ -7,7 +7,7 @@ import Score from './data/Score';
 
 const validChars = ["r", "g", "b", "p", "y"];
 const charCount = 5;
-const guessCount = 6;
+const guessCount = 10;
 
 const Input = styled.input`
   margin: 3em;
@@ -52,8 +52,19 @@ function calculateScore(answer: String, guess: String): Score {
   }
 }
 
+function generateAnswer() {
+  const colours = [
+    'r',
+    'g',
+    'b',
+    'y',
+    'p',
+  ]
+  return Array.from(Array(charCount)).map(_ => colours[Math.floor(Math.random() * colours.length)]).join("");
+}
+
 function Game() {
-  const answer = "rggbp";
+  const answer = generateAnswer();
   const [text, setText] = useState("");
   const [index, setIndex] = useState(0);
   const [pizzaStates, setPizzaStates] = useState<PizzaState[]>(Array.from(Array(guessCount).fill(
