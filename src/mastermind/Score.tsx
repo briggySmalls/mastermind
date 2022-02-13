@@ -1,12 +1,15 @@
 import styled from 'styled-components';
+import Score from './data/Score';
 
 interface ScoreProps {
-  exact: number;
-  partial: number;
+  score?: Score;
 }
+
+const markerWidth = 1;
 
 const ScoreBoard = styled.div`
 margin-left: 1em;
+width: ${markerWidth * 5}em;
 `
 const Match = styled.div`
 display: inline-block;
@@ -22,13 +25,13 @@ const PartialMatch = styled(Match)`
 background-color: white;
 `
 
-function Score({ exact, partial }: ScoreProps) {
+function ScoreComponent({ score }: ScoreProps) {
   return (
-      <ScoreBoard>
-        {Array.from(Array(exact)).map(_ => <ExactMatch />)}
-        {Array.from(Array(partial)).map(_ => <PartialMatch />)}
-      </ScoreBoard>
+    <ScoreBoard>
+      {score && Array.from(Array(score.exact)).map(_ => <ExactMatch />)}
+      {score && Array.from(Array(score.partial)).map(_ => <PartialMatch />)}
+    </ScoreBoard>
   )
 }
 
-export default Score
+export default ScoreComponent

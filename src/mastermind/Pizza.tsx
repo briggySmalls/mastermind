@@ -26,7 +26,7 @@ function Pizza({ colours, score }: PizzaProps) {
         {colours.map((c) =>
           <Slice colour={c} />)
         }
-        {score && <Score exact={score.exact} partial={score.partial} />}
+        <Score score={score} />
       </Box>
     </>
   )
