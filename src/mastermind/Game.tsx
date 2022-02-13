@@ -62,6 +62,7 @@ function Game() {
       score: null,
     }
   )));
+  const [isEnded, setIsEnded] = useState(false);
 
   function handleTextChange(event: React.ChangeEvent<HTMLInputElement>) {
     let text = event.target.value;
@@ -74,17 +75,22 @@ function Game() {
     // Ensure we have a full guess
     if (text.length != charCount) return
     // Update state
+    const score = calculateScore(answer, text)
     let newStates = R.adjust(
       index,
       (s: PizzaState) => {
         return {
           guess: textToColours(text),
-          score: calculateScore(answer, text),
+          score: score,
         }
       },
       pizzaStates
     );
     setPizzaStates(newStates);
+    // Iterate
+    if (score.exact == charCount || index == guessCount-1) {
+      setIsEnded(true)
+    }
     setIndex(index+1);
     setText("");
   }
@@ -97,6 +103,7 @@ function Game() {
           maxLength={5}
           onChange={handleTextChange}
           value={text}
+          disabled={isEnded}
           />
         <input type="submit" value="Submit" />
       </form>
