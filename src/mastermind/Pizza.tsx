@@ -2,12 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Slice from './Slice';
 import Colour from './Colour';
-import Score from './Score';
-
-interface Score {
-  exact: number;
-  partial: number;
-}
+import ScoreComponent from './Score';
+import Score from './data/Score';
 
 interface PizzaProps {
   colours: Colour[];
@@ -26,7 +22,7 @@ function Pizza({ colours, score }: PizzaProps) {
         {colours.map((c) =>
           <Slice colour={c} />)
         }
-        <Score score={score} />
+        <ScoreComponent score={score} />
       </Box>
     </>
   )
