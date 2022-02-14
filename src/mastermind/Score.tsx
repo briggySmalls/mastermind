@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Score from './data/Score';
+import {Score} from './data/Score';
 
 interface ScoreProps {
   score?: Score;

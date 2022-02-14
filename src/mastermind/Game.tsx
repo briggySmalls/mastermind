@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import * as R from 'ramda';
 import Colour from "./Colour";
 import Pizza from './Pizza';
-import Score from './data/Score';
+import * as R from 'ramda';
+import {Score, calculateScore} from './data/Score';
 
 const validChars = ["r", "g", "b", "p", "y"];
 const charCount = 5;
@@ -30,26 +30,6 @@ function textToColours(text: String) {
       default: return Colour.Grey
     }
   })
-}
-
-/**
- * See https://stackoverflow.com/a/2005930/6224353
- * @param answer The answer we're guessing for
- * @param guess The guess
- */
-function calculateScore(answer: String, guess: String): Score {
-  const ansArr = answer.split('');
-  const guessArr = guess.split('');
-  const exact =  R.zipWith((a, g) => a === g, ansArr, guessArr).filter(Boolean).length
-  const common = R.intersection(ansArr, guessArr)
-  const matching = R.sum(common.map(c => R.min(
-    ansArr.filter(v => v === c).length,
-    guessArr.filter(v => v === c).length,
-  )));
-  return {
-    exact: exact,
-    partial: matching - exact,
-  }
 }
 
 function generateAnswer() {

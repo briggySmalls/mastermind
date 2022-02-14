@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Slice from './Slice';
 import Colour from './Colour';
 import ScoreComponent from './Score';
-import Score from './data/Score';
+import { Score } from './data/Score';
 
 interface PizzaProps {
   colours: Colour[];
