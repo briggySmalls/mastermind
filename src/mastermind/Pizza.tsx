@@ -19,8 +19,8 @@ function Pizza({ colours, score }: PizzaProps) {
   return (
     <>
       <Box>
-        {colours.map((c) =>
-          <Slice colour={c} />)
+        {colours.map((c, i) =>
+          <Slice key={`slice-${i}`} colour={c} />)
         }
         <ScoreComponent score={score} />
       </Box>

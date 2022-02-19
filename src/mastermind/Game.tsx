@@ -100,7 +100,7 @@ function Game() {
       </form>
       {
         pizzaStates.map((s, i) =>
-          <Pizza colours={(i === index) ? textToColours(text) : s.guess} score={s.score} />
+          <Pizza key={`pizza-${i}`} colours={(i === index) ? textToColours(text) : s.guess} score={s.score} />
         )
       }
     </>
