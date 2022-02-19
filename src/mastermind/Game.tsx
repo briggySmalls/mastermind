@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import Colour from "./Colour";
 import Pizza from './Pizza';
+import Keyboard from './Keyboard';
 import * as R from 'ramda';
 import {Score, calculateScore} from './data/Score';
 import seedrandom from 'seedrandom';
@@ -70,6 +71,7 @@ function Game() {
     if (text.length !== charCount) return
     // Update state
     const score = calculateScore(answer, text)
+    console.log(score);
     let newStates = R.adjust(
       index,
       (s: PizzaState) => {
@@ -91,21 +93,12 @@ function Game() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <Input key="input"
-          type="text"
-          maxLength={5}
-          onChange={handleTextChange}
-          value={text}
-          disabled={isEnded}
-          />
-        <input type="submit" value="Submit" />
-      </form>
       {
         pizzaStates.map((s, i) =>
           <Pizza key={`pizza-${i}`} colours={(i === index) ? textToColours(text) : s.guess} score={s.score} />
         )
       }
+      <Keyboard />
     </>
   )
 }
