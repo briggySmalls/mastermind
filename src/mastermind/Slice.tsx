@@ -6,17 +6,21 @@ interface SliceProps {
   colour: Colour;
 }
 
-function Slice({ colour }: SliceProps) {
-  const SliceContainer = styled.div`
-    border: 5px solid white;
-    border-radius: 5px;
-    background-color: ${colour};
-    width: 3em;
-    height: 3em;
-  `
+interface SliceContainerProps {
+  colour: string;
+}
 
+const SliceContainer = styled.div<SliceContainerProps>`
+  border: 5px solid white;
+  border-radius: 5px;
+  background-color: ${props => props.colour};
+  width: 3em;
+  height: 3em;
+`
+
+function Slice({ colour }: SliceProps) {
   return (
-    <SliceContainer/>
+    <SliceContainer colour={colour} />
   )
 }
 
