@@ -4,6 +4,7 @@ import Colour from "./Colour";
 import Pizza from './Pizza';
 import * as R from 'ramda';
 import {Score, calculateScore} from './data/Score';
+import seedrandom from 'seedrandom';
 
 const validChars = ["r", "g", "b", "p", "y"];
 const charCount = 5;
@@ -33,6 +34,8 @@ function textToColours(text: String) {
 }
 
 function generateAnswer() {
+  let today = new Date();
+  let myrng = seedrandom(today.toDateString());
   const colours = [
     'r',
     'g',
@@ -40,7 +43,7 @@ function generateAnswer() {
     'y',
     'p',
   ]
-  return Array.from(Array(charCount)).map(_ => colours[Math.floor(Math.random() * colours.length)]).join("");
+  return Array.from(Array(charCount)).map(_ => colours[Math.floor(myrng() * colours.length)]).join("");
 }
 
 function Game() {
