@@ -7,7 +7,7 @@ import {Score, calculateScore} from './data/Score';
 import seedrandom from 'seedrandom';
 
 const validChars = ["r", "g", "b", "p", "y"];
-const charCount = 5;
+const charCount = 4;
 const guessCount = 10;
 
 const Input = styled.input`
