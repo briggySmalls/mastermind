@@ -10,14 +10,12 @@ export interface Score {
  * @param answer The answer we're guessing for
  * @param guess The guess
  */
- export function calculateScore(answer: String, guess: String): Score {
-  const ansArr = answer.split('');
-  const guessArr = guess.split('');
-  const exact =  R.zipWith((a, g) => a === g, ansArr, guessArr).filter(Boolean).length
-  const common = R.intersection(ansArr, guessArr)
+ export function calculateScore<T>(answer: readonly T[], guess: readonly T[]): Score {
+  const exact =  R.zipWith((a, g) => a === g, answer, guess).filter(Boolean).length
+  const common = R.intersection(answer, guess)
   const matching = R.sum(common.map(c => R.min(
-    ansArr.filter(v => v === c).length,
-    guessArr.filter(v => v === c).length,
+    answer.filter(v => v === c).length,
+    guess.filter(v => v === c).length,
   )));
   return {
     exact: exact,

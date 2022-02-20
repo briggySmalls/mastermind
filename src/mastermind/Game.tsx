@@ -7,8 +7,7 @@ import * as R from 'ramda';
 import {Score, calculateScore} from './data/Score';
 import seedrandom from 'seedrandom';
 
-const validChars = ["r", "g", "b", "p", "y"];
-const charCount = 4;
+const codeLength = 4;
 const guessCount = 10;
 
 const Input = styled.input`
@@ -16,67 +15,53 @@ const Input = styled.input`
 `
 
 interface PizzaState {
-  guess: Colour[];
+  guess: readonly (Colour | undefined)[];
   score?: Score;
 }
 
-function textToColours(text: String) {
-  return text.padEnd(charCount, "n").split('').map(c => {
-    switch (c) {
-      case "r": return Colour.Red
-      case "g": return Colour.Green
-      case "b": return Colour.Blue
-      case "p": return Colour.Purple
-      case "y": return Colour.Yellow
-      case "n": return Colour.Grey
-      default: return Colour.Grey
-    }
-  })
-}
-
-function generateAnswer() {
+function generateAnswer(): readonly Colour[] {
   let today = new Date();
   let myrng = seedrandom(today.toDateString());
-  const colours = [
-    'r',
-    'g',
-    'b',
-    'y',
-    'p',
-  ]
-  return Array.from(Array(charCount)).map(_ => colours[Math.floor(myrng() * colours.length)]).join("");
+  const allColours = Object.values(Colour)
+  return Array.from(Array(codeLength)).map(_ => allColours[Math.floor(myrng() * allColours.length)]);
 }
 
 function Game() {
   const answer = generateAnswer();
-  const [text, setText] = useState("");
+  console.log(answer);
   const [index, setIndex] = useState(0);
   const [pizzaStates, setPizzaStates] = useState<PizzaState[]>(Array.from(Array(guessCount).fill(
     {
-      guess: Array.from(Array(charCount)).fill(Colour.Grey),
-      score: null,
+      guess: Array.from(Array(codeLength)).fill(undefined),
+      score: undefined,
     }
   )));
   const [isEnded, setIsEnded] = useState(false);
 
-  function handleTextChange(event: React.ChangeEvent<HTMLInputElement>) {
-    let text = event.target.value;
-    let validText = text.split('').filter(c => validChars.includes(c)).join('')
-    setText(validText)
+  function updateGuess(guess: readonly Colour[]) {
+    console.log(guess);
+    const newGuess: readonly (Colour | undefined)[] = R.times((i) => i < guess.length ? guess[i] : undefined, codeLength);
+    setPizzaStates(
+      R.adjust(
+        index,
+        (s: PizzaState) => {
+          return {
+            guess: newGuess,
+            score: undefined,
+          }
+        },
+        pizzaStates
+      )
+    )
   }
 
-  function handleSubmit(event: React.SyntheticEvent) {
-    event.preventDefault();
-    // Ensure we have a full guess
-    if (text.length !== charCount) return
-    // Update state
-    const score = calculateScore(answer, text)
-    console.log(score);
+  function submitGuess(guess: readonly Colour[]) {
+    const score = calculateScore(answer, guess)
     let newStates = R.adjust(
       index,
       (s: PizzaState) => {
         return {
-          guess: textToColours(text),
+          guess: guess,
           score: score,
         }
       },
@@ -84,21 +69,20 @@ function Game() {
     );
     setPizzaStates(newStates);
     // Iterate
-    if (score.exact === charCount || index === guessCount-1) {
+    if (score.exact === codeLength || index === guessCount-1) {
       setIsEnded(true)
     }
     setIndex(index+1);
-    setText("");
   }
 
   return (
     <>
       {
         pizzaStates.map((s, i) =>
-          <Pizza key={`pizza-${i}`} colours={(i === index) ? textToColours(text) : s.guess} score={s.score} />
+          <Pizza key={`pizza-${i}`} colours={s.guess} score={s.score} />
         )
       }
-      <Keyboard />
+      <Keyboard codeLength={codeLength} submitGuess={submitGuess} updateGuess={updateGuess} />
     </>
   )
 }

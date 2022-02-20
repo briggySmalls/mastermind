@@ -6,7 +6,7 @@ import ScoreComponent from './Score';
 import { Score } from './data/Score';
 
 interface PizzaProps {
-  colours: Colour[];
+  colours: readonly (Colour | undefined)[];
   score?: Score;
 }
 
