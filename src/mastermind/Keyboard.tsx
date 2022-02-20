@@ -19,6 +19,7 @@ const KeyBoardContainer = styled.div`
   background-color: grey;
   width: 80vw;
   max-width: 500px;
+  padding: 0.5em;
 `
 
 const KeyBoardRow = styled.hr`
@@ -28,13 +29,13 @@ const KeyBoardRow = styled.hr`
 
 const Key = styled.button`
   display: inline-block;
-  width: 3em;
   height: 3em;
-  border-radius: 50%;
+  border-radius: 20%;
 `
 
 const ColourKey = styled(Key)<{colour: Colour}>`
   background-color: ${props => props.colour};
+  width: 3em;
 `
 
 const SubmitKey = styled(Key)`
@@ -72,8 +73,8 @@ function Slice({ codeLength, updateGuess, submitGuess }: KeyboardProps) {
           <ColourKey colour={c} onClick={e => handleColourSubmit(c)} />
         )}
         <KeyBoardRow />
-        <SubmitKey onClick={e => handleColourRemove()} />
-        <SubmitKey onClick={e => handleSubmit()} />
+        <SubmitKey onClick={e => handleColourRemove()}>Back</SubmitKey>
+        <SubmitKey onClick={e => handleSubmit()} >Enter</SubmitKey>
     </KeyBoardContainer>
   )
 }
