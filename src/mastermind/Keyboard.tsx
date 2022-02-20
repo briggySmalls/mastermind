@@ -15,8 +15,10 @@ const KeyBoardContainer = styled.div`
   flex-flow: wrap;
   justify-content: space-around;
   bottom: 1em;
+  margin-bottom: 1em;
   border-radius: 1em;
-  background-color: grey;
+  border: 0.1em solid white;
+  background-color: #e5e5e5;
   width: 80vw;
   max-width: 500px;
   padding: 0.5em;
@@ -73,8 +75,8 @@ function Slice({ codeLength, updateGuess, submitGuess }: KeyboardProps) {
           <ColourKey colour={c} onClick={e => handleColourSubmit(c)} />
         )}
         <KeyBoardRow />
-        <SubmitKey onClick={e => handleColourRemove()}>Back</SubmitKey>
-        <SubmitKey onClick={e => handleSubmit()} >Enter</SubmitKey>
+        <SubmitKey onClick={e => handleColourRemove()}>⌫</SubmitKey>
+        <SubmitKey onClick={e => handleSubmit()} >⏎</SubmitKey>
     </KeyBoardContainer>
   )
 }

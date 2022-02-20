@@ -11,11 +11,12 @@ interface SliceContainerProps {
 }
 
 const SliceContainer = styled.div<SliceContainerProps>`
-  border: 5px solid white;
-  border-radius: 5px;
+  border: 0.2em solid white;
+  border-radius: 20%;
   background-color: ${props => props.colour ?? "grey" };
   width: 3em;
   height: 3em;
+  margin: 0.7em 0.3em;
 `
 
 function Slice({ colour }: SliceProps) {

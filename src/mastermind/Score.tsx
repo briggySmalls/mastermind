@@ -11,7 +11,9 @@ const ScoreBoard = styled.div`
   margin-left: 1em;
   width: ${markerWidth * 2}em;
   height: ${markerWidth * 2}em;
+  background-color: grey;
   border: 0.1em solid white;
+  padding: 0.1em;
   border-radius: 20%;
   display: flex;
   flex-wrap: wrap;
@@ -25,7 +27,7 @@ const Match = styled.div`
 `
 
 const ExactMatch = styled(Match)`
-  background-color: red;
+  background-color: black;
 `
 const PartialMatch = styled(Match)`
   background-color: white;
