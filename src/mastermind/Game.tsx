@@ -79,7 +79,7 @@ function Game() {
     <>
       {
         pizzaStates.map((s, i) =>
-          <Pizza key={`pizza-${i}`} colours={s.guess} score={s.score} isActive={i == index} />
+          <Pizza key={`pizza-${i}`} colours={s.guess} score={s.score} isActive={i >= index} />
         )
       }
       <Keyboard codeLength={codeLength} submitGuess={submitGuess} updateGuess={updateGuess} />

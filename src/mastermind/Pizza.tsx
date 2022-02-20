@@ -14,6 +14,7 @@ interface PizzaProps {
 const Box = styled.div<{isActive: Boolean}>`
   display: flex;
   align-items: center;
+  opacity: ${p => p.isActive ? "100%" : "40%"}
 `
 
 function Pizza({ colours, score, isActive }: PizzaProps) {

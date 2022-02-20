@@ -1,3 +1,4 @@
+import { randomUUID } from 'crypto';
 import React from 'react';
 import styled from 'styled-components';
 import Colour from "./Colour"
@@ -21,7 +22,7 @@ const SliceContainer = styled.div<SliceContainerProps>`
 
 function Slice({ colour }: SliceProps) {
   return (
-    <SliceContainer key={`slice-${colour}`} colour={colour} />
+    <SliceContainer colour={colour} />
   )
 }
 
