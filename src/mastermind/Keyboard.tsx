@@ -76,17 +76,13 @@ function Slice({ codeLength, updateGuess, submitGuess }: KeyboardProps) {
 
   function handleKeypress(event: React.KeyboardEvent) {
     const key = event.key.toLowerCase();
-    const colour = colourMap.get(key);
-
-    // if (colour !== undefined) handleColourSubmit(colour)
-    // else if ()
     switch (key) {
-      case "r": handleColourSubmit(Colour.Red); break;
-      case "g": handleColourSubmit(Colour.Green); break;
-      case "b": handleColourSubmit(Colour.Blue); break;
-      case "y": handleColourSubmit(Colour.Yellow); break;
-      case "p": handleColourSubmit(Colour.Purple); break;
-      case "y": handleColourSubmit(Colour.Yellow); break;
+      case "enter": handleSubmit(); break;
+      case "backspace": handleColourRemove(); break;
+      default:
+        const colour = colourMap.get(key);
+        if (colour !== undefined) handleColourSubmit(colour);
+        break;
     }
   }
 
