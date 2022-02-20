@@ -26,8 +26,9 @@ function generateAnswer(): readonly Colour[] {
   return Array.from(Array(codeLength)).map(_ => allColours[Math.floor(myrng() * allColours.length)]);
 }
 
+const answer = generateAnswer();
+
 function Game() {
-  const answer = generateAnswer();
   console.log(answer);
   const [index, setIndex] = useState(0);
   const [pizzaStates, setPizzaStates] = useState<PizzaState[]>(Array.from(Array(guessCount).fill(
