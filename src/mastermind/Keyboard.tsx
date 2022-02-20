@@ -52,7 +52,7 @@ const colourMap: ReadonlyMap<string, Colour> = new Map([
   ["p", Colour.Purple],
 ])
 
-function Slice({ codeLength, updateGuess, submitGuess }: KeyboardProps) {
+function Keyboard({ codeLength, updateGuess, submitGuess }: KeyboardProps) {
   const [guess, setGuess] = useState<ReadonlyArray<Colour>>([]);
 
   function handleColourSubmit(colour: Colour) {
@@ -98,4 +98,4 @@ function Slice({ codeLength, updateGuess, submitGuess }: KeyboardProps) {
   )
 }
 
-export default Slice
+export default Keyboard

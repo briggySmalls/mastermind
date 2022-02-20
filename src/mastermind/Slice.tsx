@@ -1,4 +1,3 @@
-import { randomUUID } from 'crypto';
 import React from 'react';
 import styled from 'styled-components';
 import Colour from "./Colour"

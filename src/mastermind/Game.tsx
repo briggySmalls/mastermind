@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import styled from 'styled-components';
 import Colour from "./Colour";
 import Pizza from './Pizza';
 import Keyboard from './Keyboard';
@@ -9,10 +8,6 @@ import seedrandom from 'seedrandom';
 
 const codeLength = 4;
 const guessCount = 10;
-
-const Input = styled.input`
-  margin: 3em;
-`
 
 interface PizzaState {
   guess: readonly (Colour | undefined)[];
@@ -83,7 +78,7 @@ function Game() {
           <Pizza key={`pizza-${i}`} colours={s.guess} score={s.score} isActive={i >= index} />
         )
       }
-      <Keyboard codeLength={codeLength} submitGuess={submitGuess} updateGuess={updateGuess} />
+      { !isEnded && <Keyboard codeLength={codeLength} submitGuess={submitGuess} updateGuess={updateGuess} />  }
     </>
   )
 }
