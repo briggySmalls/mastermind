@@ -44,8 +44,13 @@ const SubmitKey = styled(Key)`
   background-color: white;
 `
 
-const allColours = Object.values(Colour)
-console.log("allColours: "  + allColours)
+const colourMap: ReadonlyMap<string, Colour> = new Map([
+  ["r", Colour.Red],
+  ["g", Colour.Green],
+  ["b", Colour.Blue],
+  ["y", Colour.Yellow],
+  ["p", Colour.Purple],
+])
 
 function Slice({ codeLength, updateGuess, submitGuess }: KeyboardProps) {
   const [guess, setGuess] = useState<ReadonlyArray<Colour>>([]);
@@ -69,10 +74,26 @@ function Slice({ codeLength, updateGuess, submitGuess }: KeyboardProps) {
     setGuess([]);
   }
 
+  function handleKeypress(event: React.KeyboardEvent) {
+    const key = event.key.toLowerCase();
+    const colour = colourMap.get(key);
+
+    // if (colour !== undefined) handleColourSubmit(colour)
+    // else if ()
+    switch (key) {
+      case "r": handleColourSubmit(Colour.Red); break;
+      case "g": handleColourSubmit(Colour.Green); break;
+      case "b": handleColourSubmit(Colour.Blue); break;
+      case "y": handleColourSubmit(Colour.Yellow); break;
+      case "p": handleColourSubmit(Colour.Purple); break;
+      case "y": handleColourSubmit(Colour.Yellow); break;
+    }
+  }
+
   return (
-    <KeyBoardContainer>
-        {allColours.map(c =>
-          <ColourKey colour={c} onClick={e => handleColourSubmit(c)} />
+    <KeyBoardContainer tabIndex={-1} onKeyDown={handleKeypress}>
+        {Array.from(colourMap.entries()).map(pair =>
+          <ColourKey colour={pair[1]} onClick={e => handleColourSubmit(pair[1])} >{pair[0]}</ColourKey>
         )}
         <KeyBoardRow />
         <SubmitKey onClick={e => handleColourRemove()}>⌫</SubmitKey>
