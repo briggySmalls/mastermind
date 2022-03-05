@@ -2,8 +2,9 @@ import React, {useState} from 'react';
 import Colour from "./Colour";
 import Pizza from './Pizza';
 import Keyboard from './Keyboard';
+import Completed from './Completed';
 import * as R from 'ramda';
-import {Score, calculateScore} from './data/Score';
+import {Score, calculateScore, nullScore} from './data/Score';
 import seedrandom from 'seedrandom';
 
 const codeLength = 4;
@@ -71,6 +72,19 @@ function Game() {
     setIndex(index+1);
   }
 
+  const overlayComponent = !isEnded ?
+    (
+      <Keyboard codeLength={codeLength} submitGuess={submitGuess} updateGuess={updateGuess} /> 
+    ) :
+    (
+      <Completed scores={
+        pizzaStates
+          .map(s => s.score)
+          .filter(s => s !== undefined)
+          .map(s => R.defaultTo(nullScore, s))
+        } />
+    );
+
   return (
     <>
       {
@@ -78,7 +92,7 @@ function Game() {
           <Pizza key={`pizza-${i}`} colours={s.guess} score={s.score} isActive={i >= index} />
         )
       }
-      { !isEnded && <Keyboard codeLength={codeLength} submitGuess={submitGuess} updateGuess={updateGuess} />  }
+      { overlayComponent }
     </>
   )
 }

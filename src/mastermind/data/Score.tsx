@@ -5,6 +5,11 @@ export interface Score {
   partial: number;
 }
 
+export const nullScore = {
+  exact: 0,
+  partial: 0,
+};
+
 /**
  * See https://stackoverflow.com/a/2005930/6224353
  * @param answer The answer we're guessing for
