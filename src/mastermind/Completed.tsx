@@ -20,12 +20,18 @@ function displayText(length: number) {
   return `You completed it in ${length} ${length === 1 ? "attempt" : "attempts"}`;
 }
 
+function shareText(scores: readonly Score[]) {
+  return scores.map(s => s.text()).join("\n")
+}
+
 function CompletedModal({ scores }: CompletedProps) {
   return (
     <Box>
       <p>🎉 ¡Congratulations! 🎉</p>
-      <p>{displayText(scores.length)}
-      </p>
+      <p>{displayText(scores.length)}</p>
+      {scores.map(s => (
+          <p>{s.text()}</p>
+      ))}
     </Box>
   )
 }

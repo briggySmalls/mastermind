@@ -1,5 +1,5 @@
 import React from 'react';
-import { calculateScore } from './Score';
+import { calculateScore, ScoreClass } from './Score';
 import Colour from '../Colour';
 
 describe('calculates score correctly', () => {
@@ -45,3 +45,18 @@ describe('calculates score correctly', () => {
     expect(calculateScore(answer, guess)).toEqual(score);
   })
 });
+
+describe('renders score correctly', () => {
+  it.each([
+    [new ScoreClass(0, 0), `nnnn`],
+    [new ScoreClass(1, 0), "⚫️nnn"],
+    [new ScoreClass(0, 4), "⚪️⚪️⚪️⚪️"],
+    [new ScoreClass(1, 3), "⚫️⚪️⚪️⚪️"],
+    [new ScoreClass(2, 2), "⚫️⚫️⚪️⚪️"],
+    [new ScoreClass(3, 1), "⚫️⚫️⚫️⚪️"],
+    [new ScoreClass(4, 0), "⚫️⚫️⚫️⚫️"],
+  ])(
+    `handles %o`,
+    (score, text) => expect(score.text()).toEqual(text)
+  )
+})

@@ -3,12 +3,21 @@ import * as R from 'ramda';
 export interface Score {
   exact: number;
   partial: number;
+  text(): String;
 }
 
-export const nullScore = {
-  exact: 0,
-  partial: 0,
-};
+export class ScoreClass {
+  constructor(public exact: number, public partial: number) {}
+
+  text() {
+    return [
+      "⚫️".repeat(this.exact),
+      "⚪️".repeat(this.partial)
+    ].join("").padEnd(4, "n")
+  }
+}
+
+export const nullScore: Score = new ScoreClass(0, 0);
 
 /**
  * See https://stackoverflow.com/a/2005930/6224353
@@ -22,8 +31,8 @@ export const nullScore = {
     answer.filter(v => v === c).length,
     guess.filter(v => v === c).length,
   )));
-  return {
-    exact: exact,
-    partial: matching - exact,
-  }
+  return new ScoreClass(
+    exact,
+    matching - exact,
+  )
 }
