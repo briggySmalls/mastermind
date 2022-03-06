@@ -11,9 +11,9 @@ export class ScoreClass {
 
   text() {
     return [
-      "⚫️".repeat(this.exact),
-      "⚪️".repeat(this.partial)
-    ].join("").padEnd(4, "n")
+      "\u26AB".repeat(this.exact),
+      "\u26AA".repeat(this.partial)
+    ].join("").padEnd(4, "\u20E0")
   }
 }
 
