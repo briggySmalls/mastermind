@@ -5,6 +5,7 @@ import Keyboard from './Keyboard';
 import Completed from './Completed';
 import * as R from 'ramda';
 import {Score, calculateScore, nullScore} from './data/Score';
+import GameState from './data/GameState';
 import seedrandom from 'seedrandom';
 
 const codeLength = 4;
@@ -33,7 +34,7 @@ function Game() {
       score: undefined,
     }
   )));
-  const [isEnded, setIsEnded] = useState(false);
+  const [gameState, setGameState] = useState(GameState.RUNNING);
 
   function updateGuess(guess: readonly Colour[]) {
     console.log(guess);
@@ -66,24 +67,35 @@ function Game() {
     );
     setPizzaStates(newStates);
     // Iterate
-    if (score.exact === codeLength || index === guessCount-1) {
-      setIsEnded(true)
+    if (score.exact === codeLength) {
+      setGameState(GameState.COMPLETE)
+    } else if (index === guessCount-1) {
+      setGameState(GameState.FAILED)
     }
     setIndex(index+1);
   }
 
-  const overlayComponent = !isEnded ?
-    (
-      <Keyboard codeLength={codeLength} submitGuess={submitGuess} updateGuess={updateGuess} /> 
-    ) :
-    (
-      <Completed scores={
-        pizzaStates
-          .map(s => s.score)
-          .filter(s => s !== undefined)
-          .map(s => R.defaultTo(nullScore, s))
-        } />
-    );
+  function overlayComponent(): React.ReactElement {
+    switch (gameState) {
+      case GameState.RUNNING:
+        return (
+          <Keyboard codeLength={codeLength} submitGuess={submitGuess} updateGuess={updateGuess} />
+        )
+      case GameState.COMPLETE:
+        return (
+          <Completed scores={
+            pizzaStates
+              .map(s => s.score)
+              .filter(s => s !== undefined)
+              .map(s => R.defaultTo(nullScore, s))
+            } />
+        )
+      default:
+        return (
+          <></>
+        );
+    }
+  }
 
   return (
     <>
@@ -92,7 +104,7 @@ function Game() {
           <Pizza key={`pizza-${i}`} colours={s.guess} score={s.score} isActive={i >= index} />
         )
       }
-      { overlayComponent }
+      { overlayComponent() }
     </>
   )
 }
