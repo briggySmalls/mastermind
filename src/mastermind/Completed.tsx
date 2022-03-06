@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Score } from './data/Score';
 
@@ -16,22 +16,36 @@ const Box = styled.div`
   border-radius: 1em;
 `
 
+const ShareButton = styled.button`
+`;
+
 function displayText(length: number) {
   return `You completed it in ${length} ${length === 1 ? "attempt" : "attempts"}`;
 }
 
 function shareText(scores: readonly Score[]) {
-  return scores.map(s => s.text()).join("\n")
+  const scoresText = scores.map(s => s.text()).join("\n");
+  return `Pizza ${(new Date()).toLocaleDateString()}
+${scoresText}
+https://pippyjames.pizza
+  `
 }
 
 function CompletedModal({ scores }: CompletedProps) {
+  const [isCopied, setIsCopied] = useState(false);
   return (
     <Box>
       <p>🎉 ¡Congratulations! 🎉</p>
       <p>{displayText(scores.length)}</p>
-      {scores.map(s => (
-          <p>{s.text()}</p>
-      ))}
+      <ShareButton onClick={() => {
+          navigator.clipboard.writeText(shareText(scores));
+          setIsCopied(true);
+        }}>
+        Share!
+      </ShareButton>
+      { isCopied && 
+        <p>Score copied to clipboard!</p>
+      }
     </Box>
   )
 }
